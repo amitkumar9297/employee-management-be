@@ -1,0 +1,800 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Backend Template API",
+    "description": "API documentation for the Quiz App",
+    "contact": {
+      "name": "API Support",
+      "email": "support@example.com"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "tags": [
+    { "name": "users", "description": "User management APIs" },
+    { "name": "employees", "description": "Employee management APIs" },
+    { "name": "attendance", "description": "Attendance management APIs" },
+    { "name": "leaves", "description": "Leave management APIs" },
+    { "name": "logs", "description": "Logs management APIs" }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/users/": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create a User",
+        "description": "Endpoint to create a new user.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUser"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "Get All Users",
+        "description": "Retrieve all users. Admin access required.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token for authentication"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users retrieved successfully."
+          },
+          "403": {
+            "description": "Access forbidden. Admin access required."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["users"],
+        "summary": "User Login",
+        "description": "Authenticate a user and return an access token.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful. Access token returned."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "401": {
+            "description": "Authentication failed."
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get User by ID",
+        "description": "Retrieve details of a user by their ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully."
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "put": {
+        "tags": ["users"],
+        "summary": "Update User",
+        "description": "Update a user's details. User access required.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "User ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "403": {
+            "description": "Access forbidden."
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["users"],
+        "summary": "Delete User",
+        "description": "Delete a user by their ID. User access required.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully."
+          },
+          "403": {
+            "description": "Access forbidden."
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/users/refresh-token": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Refresh Access Token",
+        "description": "Refresh the user's access token.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Access token refreshed successfully."
+          },
+          "401": {
+            "description": "Authentication failed."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/employees/": {
+      "post": {
+        "tags": ["employees"],
+        "summary": "Create Employee",
+        "description": "Endpoint to create a new employee.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateEmployee"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Employee created successfully."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "get": {
+        "tags": ["employees"],
+        "summary": "Get All Employees",
+        "description": "Retrieve all employees. Admin access required.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token for authentication"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of employees retrieved successfully."
+          },
+          "403": {
+            "description": "Access forbidden. Admin access required."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/employees/{id}": {
+      "get": {
+        "tags": ["employees"],
+        "summary": "Get Employee by ID",
+        "description": "Retrieve details of an employee by their ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Employee ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee details retrieved successfully."
+          },
+          "404": {
+            "description": "Employee not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "put": {
+        "tags": ["employees"],
+        "summary": "Update Employee",
+        "description": "Update an employee's details. Admin access required.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Employee ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateEmployee"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee updated successfully."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "403": {
+            "description": "Access forbidden."
+          },
+          "404": {
+            "description": "Employee not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["employees"],
+        "summary": "Delete Employee",
+        "description": "Delete an employee by their ID. Admin access required.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Employee ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee deleted successfully."
+          },
+          "403": {
+            "description": "Access forbidden."
+          },
+          "404": {
+            "description": "Employee not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/attendance/{employeeId}": {
+      "post": {
+        "tags": ["attendance"],
+        "summary": "Update Attendance",
+        "description": "Mark attendance for an employee.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "employeeId",
+            "type": "string",
+            "required": true,
+            "description": "Employee ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateAttendance"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Attendance updated successfully."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "404": {
+            "description": "Employee not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/attendance/{employeeId}/history": {
+      "get": {
+        "tags": ["attendance"],
+        "summary": "Get Attendance History",
+        "description": "Retrieve attendance history for an employee.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "employeeId",
+            "type": "string",
+            "required": true,
+            "description": "Employee ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Attendance history retrieved successfully."
+          },
+          "404": {
+            "description": "Employee not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/leaves/": {
+      "post": {
+        "tags": ["leaves"],
+        "summary": "Request Leave",
+        "description": "Request leave for an employee.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RequestLeave"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Leave request created successfully."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "get": {
+        "tags": ["leaves"],
+        "summary": "Get All Leaves",
+        "description": "Retrieve all leave requests.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token for authentication"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of leave requests retrieved successfully."
+          },
+          "403": {
+            "description": "Access forbidden. Admin access required."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/leaves/{id}": {
+      "get": {
+        "tags": ["leaves"],
+        "summary": "Get Leave by ID",
+        "description": "Retrieve leave request by ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Leave request ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leave request details retrieved successfully."
+          },
+          "404": {
+            "description": "Leave request not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "put": {
+        "tags": ["leaves"],
+        "summary": "Update Leave",
+        "description": "Update leave request by ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Leave request ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateLeave"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leave request updated successfully."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "404": {
+            "description": "Leave request not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["leaves"],
+        "summary": "Delete Leave",
+        "description": "Delete leave request by ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Leave request ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leave request deleted successfully."
+          },
+          "404": {
+            "description": "Leave request not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/logs/": {
+      "get": {
+        "tags": ["logs"],
+        "summary": "Get All Logs",
+        "description": "Retrieve all logs.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token for authentication"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of logs retrieved successfully."
+          },
+          "403": {
+            "description": "Access forbidden. Admin access required."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateUser": {
+      "type": "object",
+      "required": ["name", "email", "password"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "johndoe@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password123"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["USER", "ADMIN"],
+          "example": "USER"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "LoginUser": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "johndoe@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password123"
+        }
+      }
+    },
+    "UpdateUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe Updated"
+        },
+        "email": {
+          "type": "string",
+          "example": "johnupdated@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "newpassword123"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["USER", "ADMIN"],
+          "example": "USER"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "CreateEmployee": {
+      "type": "object",
+      "required": ["name", "email", "position", "department"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Alice Smith"
+        },
+        "email": {
+          "type": "string",
+          "example": "alice@example.com"
+        },
+        "position": {
+          "type": "string",
+          "example": "Software Engineer"
+        },
+        "department": {
+          "type": "string",
+          "example": "Development"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ACTIVE", "INACTIVE"],
+          "example": "ACTIVE"
+        },
+        "dateOfJoining": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-01-15"
+        }
+      }
+    },
+    "UpdateEmployee": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Alice Smith Updated"
+        },
+        "email": {
+          "type": "string",
+          "example": "aliceupdated@example.com"
+        },
+        "position": {
+          "type": "string",
+          "example": "Senior Software Engineer"
+        },
+        "department": {
+          "type": "string",
+          "example": "Development"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ACTIVE", "INACTIVE"],
+          "example": "ACTIVE"
+        }
+      }
+    },
+    "UpdateAttendance": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["PRESENT", "ABSENT", "LEAVE"],
+          "example": "PRESENT"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-01-15"
+        }
+      }
+    },
+    "RequestLeave": {
+      "type": "object",
+      "required": ["employeeId", "startDate", "endDate", "reason"],
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "example": "12345"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-02-01"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-02-05"
+        },
+        "reason": {
+          "type": "string",
+          "example": "Personal Leave"
+        }
+      }
+    },
+    "UpdateLeave": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-02-01"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-02-05"
+        },
+        "reason": {
+          "type": "string",
+          "example": "Updated Reason"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["PENDING", "APPROVED", "REJECTED"],
+          "example": "PENDING"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Error message."
+        }
+      }
+    }
+  }
+}
