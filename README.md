@@ -136,3 +136,15 @@ src/
    ```
 
 ---
+
+## ER-Diagram
+
+![ER-Diagram](https://github.com/user-attachments/assets/be21914f-8e8e-45f7-8cdd-93633d598ab7)
+
+
+
+## DFD-Diagram
+
+![DFD](https://github.com/user-attachments/assets/b0152119-9d00-4b52-94e2-a45bee258717)
+
+
